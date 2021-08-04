@@ -1,0 +1,6 @@
+module Pods_AwesomeJS_AwesomeJSTests {
+  umbrella header "Pods-AwesomeJS-AwesomeJSTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
