@@ -1,0 +1,43 @@
+import React from 'react';
+import { Provider } from 'react-redux';
+import { StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { bootstrapApp } from 'utils/bootstrapApp.util';
+import { persistor, store } from 'store';
+import RootRouter from 'routes/Root.route';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Host } from 'react-native-portalize';
+import Toast from 'react-native-toast-message';
+import ThemeProvider from 'context/theme-provider/ThemeProvider';
+import ImageCacheProvider from 'context/image-cache-provider/ImageCacheProvider';
+bootstrapApp();
+
+const App = () => {
+  return (
+    <>
+      <StatusBar
+        backgroundColor={'white'}
+        translucent={true}
+        barStyle={'dark-content'}
+      />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <SafeAreaProvider>
+            <Host>
+              <ThemeProvider>
+                <ImageCacheProvider>
+                  <>
+                    <RootRouter />
+                    <Toast ref={(ref) => Toast.setRef(ref)} />
+                  </>
+                </ImageCacheProvider>
+              </ThemeProvider>
+            </Host>
+          </SafeAreaProvider>
+        </PersistGate>
+      </Provider>
+    </>
+  );
+};
+
+export default App;
